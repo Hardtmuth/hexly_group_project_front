@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "exo2";
+    src: url(/assets/fonts/Exo2-VariableFont_wght.ttf) format(woff);
+    font-weight: 400;
+}
+* {
+    font-family: 'exo2';
+}
+
+.when {
+    margin-top: 70px;
+    margin-bottom: 20px;
+
+
+}
+
+.btn-add-del {
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+
+footer {
+    margin-top: auto; 
+}
