@@ -1,6 +1,6 @@
 @font-face {
     font-family: "exo2";
-    src: url(/assets/fonts/Exo2-VariableFont_wght.ttf) format(woff);
+    src: url(/assets/fonts/Exo2-VariableFont_wght.ttf);
     font-weight: 400;
 }
 * {
@@ -26,7 +26,26 @@ body {
     min-height: 100vh; 
 }
 
+.lits-footer {
+    width: 200px;
+}
+
+.footer-tab {
+    width: 60vw;
+    height: 100px;
+}
+
+
+.img-footer {
+    width: 32px;
+    height: 32px;
+}
+
+.telegram {
+    padding-right: 9px;
+}
 
 footer {
-    margin-top: auto; 
+    margin-top: auto;
+    margin-bottom: 40px; 
 }
