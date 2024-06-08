@@ -1,48 +1,26 @@
 import axios from "axios";
 
 
-// axios.get('http://localhost:8080/tasks')
-//   .then(response => {
-//     // Обработка успешного ответа
-//     console.log(response.data);
-//   })
-//   .catch(error => {
-//     // Обработка ошибок
-//     console.error('Произошла ошибка при выполнении GET запроса:', error);
-//   });
+const axiosInstance = axios.create({baseURL: 'http://localhost:8080'});
 
-await axios.post('http://localhost:8080/task/create', { 
-    text: 'Купить молоко',
-    status: 'open',
-    priority: 1,
-}) 
-.then(response => {
-    // Обработка успешного ответа
+const createTask = async (text, status, priority) => { 
+  try {
+    const response = await axiosInstance.post('/task/create', { text, status, priority, });
     console.log(response.data);
-})
-.catch(error => {
-    // Обработка ошибок
-    console.error('Произошла ошибка при выполнении POST запроса:', error.toJSON);
-});
+    return response.data;
+  } catch (error) {
+    console.error('Произошла ошибка при выполнении POST запроса:'); 
+    throw error; 
+  }
+};
 
+const createNewTask = async () => {
+  try {
+    const newTask = await createTask('Купить молоко', 'open', 1);
+    console.log('Task created:', newTask);
+  } catch (error) {
+    console.error('Failed to create task:', error);
+  }
+};
 
-// const fn = async () => {
-//     const tempTask = {
-//         text: 'Купить молоко',
-//         status: 'open',
-//         priority: 1,
-//       };
-
-//     const response = await axios.post('http://localhost:8080/task/create', tempTask)
-//     .then(response => {
-//         // Обработка успешного ответа
-//         console.log(response.data);
-//     })
-//     .catch(error => {
-//         // Обработка ошибок
-//         console.error('Произошла ошибка при выполнении POST запроса:', error.toJSON);
-//     });
-// };
-  
-
-
+createNewTask();
