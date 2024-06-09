@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
 <body>
+  <script type="module">
+    import {getTasksList} from './src/requestsToBack.js';
+    document.addEventListener('DOMContentLoaded', (event) => {
+      getTasksList();
+    });
+  </script>
+
     <header>
         <nav class="navbar bg-body-tertiary fixed-top">
           <div class="container-fluid d-flex justify-content-start">
@@ -130,7 +137,7 @@
             </span>
             <span class="d-flex align-items-center">
               <img class="img-fluid img-footer" src="/assets/img/becender.svg" alt="">
-              Beckender's - Alexander and Nikita Miroshnikov
+              Beckender's - Alexander Kazarin and Nikita Miroshnikov
             </span>
           </div>
         </div>
@@ -142,6 +149,6 @@
 
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="/src/main.js"></script>
+  <!-- <script type="module" src="/src/main.js"></script> -->
 </body>
 </html>
