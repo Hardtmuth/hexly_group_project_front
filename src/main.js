@@ -6,6 +6,7 @@ const createNewTask = async () => {
   try {
     const newTask = await createTask(taskInput.value, 'open', 1);
     console.log('Task created:', newTask);
+    window.location.reload();
   } catch (error) {
     console.error('Failed to create task:', error);
   }
