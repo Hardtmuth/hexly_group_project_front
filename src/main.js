@@ -1,23 +1,39 @@
 import getTasks from "./getAllTasks.js";
+import { createTask, deleteTask } from "./taskActions.js";
 
+// Создать задачу
+const createNewTask = async () => {
+  try {
+    const newTask = await createTask(taskInput.value, 'open', 1);
+    console.log('Task created:', newTask);
+  } catch (error) {
+    console.error('Failed to create task:', error);
+  }
+};
 
-const allTasks = await getTasks();
-console.log(allTasks.tasks);
-
-const form = document.querySelector('#form');
 const taskInput = document.querySelector('#taskInput');
+const createBtn = document.querySelector('#create-btn');
+createBtn.addEventListener("click", createNewTask);
 
-const tempTask = {
-  text: 'Купить молоко',
-  status: "open",
-  priority: 1
-}
+// Удалить задачу
+const delTask = async (id) => {
+  try {
+    const dTask = await deleteTask(id);
+    console.log('Task deleted:', dTask);
+  } catch (error) {
+    console.error('Failed to delete task:', error);
+  }
+};
+
+// Отображаем список задач
+const allTasks = await getTasks();
 
 const renderTask = (someTask) => {
   const taskList = document.querySelector('#task-list');
 
   const textTask = document.createTextNode(someTask.text);
   const textSpan = document.createElement('span');
+  textSpan.className = "me-2";
   textSpan.append(textTask);
 
   const priorityTask = document.createTextNode(someTask.priority);
@@ -33,11 +49,15 @@ const renderTask = (someTask) => {
   const doneBtnText = document.createTextNode('Done')
   const doneBtn = document.createElement('button')
   doneBtn.type = 'button';
-  doneBtn.className = "btn btn-outline-success";
+  doneBtn.className = "btn btn-outline-success me-2";
   doneBtn.append(doneBtnText);
 
   const delBtnText = document.createTextNode('Delete')
   const delBtn = document.createElement('button')
+  delBtn.addEventListener("click", () => {
+    delTask(someTask.id);
+    window.location.reload();
+  });
   delBtn.type = 'button';
   delBtn.className = "btn btn-outline-danger";
   delBtn.append(delBtnText);
@@ -54,27 +74,4 @@ const renderTask = (someTask) => {
   taskList.append(listItem);
 };
 
-renderTask(tempTask);
-
-allTasks.tasks.forEach(renderTask)
-
-/* form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const taskText = taskInput.value;
-
-    const taskHTML = `<li class="list-group-item d-flex align-items-center">
-    <div class="w-50 flex-grow-1">
-      <span class="">${taskText}</span>
-      <span class="badge bg-danger rounded-pill">High priority</span>
-    </div>
-    <div>
-      <button type="button" class="btn btn-outline-success" disabled>Done</button>
-      <button type="button" class="btn btn-outline-danger" disabled>Delete</button>
-    </div>
-  </li>`;
-
-
-
-  console.log(taskHTML);
-}) */
+allTasks.tasks.forEach(renderTask);
