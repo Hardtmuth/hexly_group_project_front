@@ -1,10 +1,20 @@
 import getTasks from "./getAllTasks.js";
 import { createTask, deleteTask } from "./taskActions.js";
 
+const getPriority = () => {
+  const priorityText = document.querySelector('#priorityMenu').textContent;
+  switch (priorityText) {
+    case 'High': return 3;
+    case 'Medium': return 2;
+    case 'Low': return 1;
+    default: return 1;
+  }
+};
+
 // Создать задачу
 const createNewTask = async () => {
   try {
-    const newTask = await createTask(taskInput.value, 'open', 1);
+    const newTask = await createTask(taskInput.value, 'open', getPriority());
     console.log('Task created:', newTask);
     window.location.reload();
   } catch (error) {
@@ -15,6 +25,29 @@ const createNewTask = async () => {
 const taskInput = document.querySelector('#taskInput');
 const createBtn = document.querySelector('#create-btn');
 createBtn.addEventListener("click", createNewTask);
+
+// Выбор приоритета
+const highPriority = document.querySelector('#highPriority');
+highPriority.addEventListener("click", async () => {  
+  const priorityMenu = document.querySelector('#priorityMenu');
+  priorityMenu.textContent = 'High';
+  priorityMenu.classList.remove('btn-outline-secondary', 'text-bg-success','text-bg-primary');
+  priorityMenu.classList.add('text-bg-danger');
+});
+const mediumPriority = document.querySelector('#mediumPriority');
+mediumPriority.addEventListener("click", async () => {  
+  const priorityMenu = document.querySelector('#priorityMenu');
+  priorityMenu.textContent = 'Medium';
+  priorityMenu.classList.remove('btn-outline-secondary', 'text-bg-danger','text-bg-primary');
+  priorityMenu.classList.add('text-bg-success');
+});
+const lowPriority = document.querySelector('#lowPriority');
+lowPriority.addEventListener("click", async () => {  
+  const priorityMenu = document.querySelector('#priorityMenu');
+  priorityMenu.textContent = 'Low';
+  priorityMenu.classList.remove('btn-outline-secondary', 'text-bg-danger','text-bg-success');
+  priorityMenu.classList.add('text-bg-primary');
+});
 
 // Удалить задачу
 const delTask = async (id) => {
