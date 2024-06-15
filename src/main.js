@@ -11,6 +11,14 @@ const getPriority = () => {
   }
 };
 
+const getTextPriority = (prior) => {
+  switch (prior) {
+    case 3: return 'High';
+    case 2: return 'Medium';
+    default: return 'Low';
+  }
+};
+
 // Создать задачу
 const createNewTask = async () => {
   try {
@@ -80,9 +88,15 @@ const renderTask = (someTask) => {
   textSpan.className = "me-2";
   textSpan.append(textTask);
 
-  const priorityTask = document.createTextNode(someTask.priority);
+  const priorityTask = document.createTextNode(getTextPriority(someTask.priority));
   const prioritySpan = document.createElement('span');
-  prioritySpan.className = "badge bg-danger rounded-pill";
+  if (someTask.priority === 3) {
+    prioritySpan.className = "badge bg-danger rounded-pill";
+  } else if (someTask.priority === 2) {
+    prioritySpan.className = "badge bg-success rounded-pill";
+  } else {
+    prioritySpan.className = "badge bg-primary rounded-pill";
+  }  
   prioritySpan.append(priorityTask);
 
   const firstDiv = document.createElement('div');
@@ -90,15 +104,20 @@ const renderTask = (someTask) => {
   firstDiv.append(textSpan);
   firstDiv.append(prioritySpan);
 
-  const doneBtnText = document.createTextNode('Done');
-  const doneBtn = document.createElement('button');
-  doneBtn.addEventListener("click", () => {
-    chenStatus(someTask.id, 'closed');
-    window.location.reload();
-  });
-  doneBtn.type = 'button';
-  doneBtn.className = "btn btn-outline-success me-2";
-  doneBtn.append(doneBtnText);
+  let doneBtn;
+  if(someTask.status === 'open') {
+    const doneBtnText = document.createTextNode('Done');
+    doneBtn = document.createElement('button');
+    doneBtn.addEventListener("click", () => {
+      chenStatus(someTask.id, 'closed');
+      window.location.reload();
+    });
+    doneBtn.type = 'button';
+    doneBtn.className = "btn btn-outline-success me-2";
+    doneBtn.append(doneBtnText);
+  } else {
+    textSpan.className = 'text-closed';
+  }  
 
   const delBtnText = document.createTextNode('Delete')
   const delBtn = document.createElement('button')
@@ -111,7 +130,9 @@ const renderTask = (someTask) => {
   delBtn.append(delBtnText);
 
   const secondDiv = document.createElement('div');
-  secondDiv.append(doneBtn);
+  if(someTask.status === 'open') {
+    secondDiv.append(doneBtn);
+  }  
   secondDiv.append(delBtn);
 
   const listItem = document.createElement('li');
