@@ -1,5 +1,5 @@
 import getTasks from "./getAllTasks.js";
-import { createTask, deleteTask } from "./taskActions.js";
+import { createTask, deleteTask, changeStatus } from "./taskActions.js";
 
 const getPriority = () => {
   const priorityText = document.querySelector('#priorityMenu').textContent;
@@ -59,6 +59,16 @@ const delTask = async (id) => {
   }
 };
 
+// Изменить статус задачи 
+const chenStatus = async (id, status) => {
+  try {
+  const chStat = await changeStatus(id, status);
+  console.log('Status chenge:', chStat);
+  } catch (error) {
+    console.log('Failed to chenge status:', error);
+  }
+}
+
 // Отображаем список задач
 const allTasks = await getTasks();
 
@@ -80,8 +90,12 @@ const renderTask = (someTask) => {
   firstDiv.append(textSpan);
   firstDiv.append(prioritySpan);
 
-  const doneBtnText = document.createTextNode('Done')
-  const doneBtn = document.createElement('button')
+  const doneBtnText = document.createTextNode('Done');
+  const doneBtn = document.createElement('button');
+  doneBtn.addEventListener("click", () => {
+    chenStatus(someTask.id, 'closed');
+    window.location.reload();
+  });
   doneBtn.type = 'button';
   doneBtn.className = "btn btn-outline-success me-2";
   doneBtn.append(doneBtnText);
