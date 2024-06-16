@@ -1,4 +1,4 @@
-import getTasks from "./getAllTasks.js";
+import { getAllTasks } from "./getTasks.js";
 import { createTask, deleteTask, changeStatus } from "./taskActions.js";
 
 const getPriority = () => {
@@ -57,7 +57,7 @@ lowPriority.addEventListener("click", async () => {
   priorityMenu.classList.add('text-bg-primary');
 });
 
-// Удалить задачу
+// Удалить задачу в Корзину
 const delTask = async (id) => {
   try {
     const dTask = await deleteTask(id);
@@ -78,7 +78,7 @@ const chenStatus = async (id, status) => {
 }
 
 // Отображаем список задач
-const allTasks = await getTasks();
+const allTasks = await getAllTasks();
 
 const renderTask = (someTask) => {
   const taskList = document.querySelector('#task-list');
@@ -117,7 +117,7 @@ const renderTask = (someTask) => {
     doneBtn.append(doneBtnText);
   } else {
     textSpan.className = 'text-closed';
-  }  
+  }
 
   const delBtnText = document.createTextNode('Delete')
   const delBtn = document.createElement('button')
@@ -132,7 +132,7 @@ const renderTask = (someTask) => {
   const secondDiv = document.createElement('div');
   if(someTask.status === 'open') {
     secondDiv.append(doneBtn);
-  }  
+  }
   secondDiv.append(delBtn);
 
   const listItem = document.createElement('li');

@@ -16,7 +16,18 @@ const createTask = async (text, status, priority) => {
 
 const deleteTask = async (id) => { 
   try {
-    const response = await axiosInstance.post('/task/remove', { id, });
+    const response = await axiosInstance.post('/task/change-status', { id, status: 'recycled' });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка POST запроса на Удаление задачи:'); 
+    throw error; 
+  }
+};
+
+const deleteRcycledTask = async (id) => { 
+  try {
+    const response = await axiosInstance.post('/task/remove', { id });
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -36,4 +47,15 @@ const changeStatus = async (id, status) => {
   }
 };
 
-export { createTask, deleteTask, changeStatus };
+const delAllTasks = async () => { 
+  try {
+    const response = await axiosInstance.post('/clean-cart');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка POST запроса на изменение статуса задачи:'); 
+    throw error; 
+  }
+};
+
+export { createTask, deleteTask, changeStatus, deleteRcycledTask, delAllTasks };
