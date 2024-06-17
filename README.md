@@ -1,6 +1,6 @@
 # Hexlet To Do 
 ```
-Our Hexlet To Do project is designed to solve household tasks in everyday life. It allows you to display tasks on your monitor screen without keeping them in your head. Next we will tell you how to prepare the project to work, enjoy using it.</span>
+Our Hexlet To Do project is designed to solve household tasks in everyday life. It allows you to display tasks on your monitor screen without keeping them in your head. Next we will tell you how to prepare the project to work, enjoy using it.
 ```
 ## Ttable of contents
 - #### [Technologies](##technologies)
